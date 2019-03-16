@@ -4,8 +4,8 @@
 
 using namespace std;
 
-string womanName[3]={"Ala","Ada","Ania"};
-string manName[3]={"Adam","Piotr","Stefan"};
+string womanName[6]={"Ala","Ada","Ania","Monika","Basia","Anastazja"};
+string manName[6]={"Adam","Piotr","Stefan","Michal","Marcin","Bartek"};
 int year;
 
 class SimulationHelper
@@ -31,11 +31,11 @@ public:
         _isMan=rand()%2;
         if(_isMan)
         {
-            _name=manName[rand()%3];
+            _name=manName[rand()%6];
         }
         else
         {
-            _name=womanName[rand()%3];
+            _name=womanName[rand()%6];
         }
         SimulationHelper::AddLog("Urodzila sie nowa osobe o imieniu "+_name);
     }
@@ -161,10 +161,6 @@ public:
         return numberOfResidents;
     }
 };
-//Napisz klasę Village. Ma ona posiadać prywatną dynamicznie alokowaną jednowymiarową tablicę wskaźników
-//na obiekty typu Household. Należy zapewnić publiczny akcesor do tej tablicy, który pozwoli z niej korzystać
-//jak z tablicy dwuwymiarowej, zwracając referencję do pola dla dwóch podanych współrzędnych. Klasa powinna
-//posiadać metodę wyświetlającą w postaci prostokątnej tablicy ilośc osób zamieszkujących konkretne domostwa.
 //Klasa powinnna posiadać metodę postarzającą domostwa o jeden rok. Jeżeli dziecko musiało się wyprowadzić z
 //domu, powinno poszukać możliwości zamieszkania w tej samej wiosce - poprzez dosiedlenie się do samotnej osoby
 //przeciwnej płci lub poprzez założenie domostwa. W pierwszej kolejności należy poszukać istniejącego domostwa,
@@ -195,7 +191,7 @@ public:
         _householdCounter=0;
     }
 
-    Household &getHousehold(int x, int y)
+    Household& getHousehold(int x, int y)
     {
         return *householdMap[x][y];
     }
@@ -224,6 +220,17 @@ public:
                 printf("%3d",numberOfResidents);
             }
             cout<<endl;
+        }
+    }
+
+    void simulateYear()
+    {
+        for(unsigned int i=0;i<_mapSizeX;i++)
+        {
+            for(unsigned int j=0;j<_mapSizeY;j++)
+            {
+                householdMap[i][j]->simulateYear();
+            }
         }
     }
 };
