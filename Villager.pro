@@ -4,4 +4,15 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+    household.cpp \
+    simulationhelper.cpp \
+    village.cpp \
+    villager.cpp
+
+HEADERS += \
+    globals.h \
+    household.h \
+    simulationhelper.h \
+    village.h \
+    villager.h
