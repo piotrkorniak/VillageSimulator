@@ -79,13 +79,51 @@ void Household::simulateYear()
     bornNewVillagers();
 }
 
-int Household::getNumberOfResidents()
+unsigned int Household::getNumberOfResidents()
 {
     return numberOfResidents;
 }
 
-Villager *Household::moveVillager()
+void Household::addNewVillager(Villager* newVillager)
 {
-    Villager *moveVillager=nullptr;
-    return moveVillager;
+    villagerArray[numberOfResidents]=newVillager;
+    numberOfResidents++;
+}
+
+Villager *Household::findVillagerWhichMoveOut()
+{
+    if(numberOfResidents==1)
+    {
+        return nullptr;
+    }
+    for(unsigned int i=0;i<numberOfResidents;++i)
+    {
+        if(villagerArray[i]->age()==20)
+        {
+            return villagerArray[i];
+        }
+    }
+    return nullptr;
+}
+
+Villager** Household::getVillagerArray()
+{
+    return villagerArray;
+}
+
+bool Household::isFreeSpace()
+{
+    return numberOfResidents<villagerArraySize;
+}
+
+void Household::deleteFromPreviousHousehold(Villager *deleteVillager)
+{
+    for(int i=numberOfResidents-1;i>=0;--i)
+    {
+        if(villagerArray[i]==deleteVillager)
+        {
+            villagerArray[i]=villagerArray[numberOfResidents-1];
+            numberOfResidents--;
+        }
+    }
 }

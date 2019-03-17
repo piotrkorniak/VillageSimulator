@@ -23,9 +23,18 @@ public:
     void incrementAgeOfEveryone();
 
     void simulateYear();
-    int getNumberOfResidents();
 
-    Villager* moveVillager();
+    unsigned int getNumberOfResidents();
+
+    void addNewVillager(Villager *newVillager);
+
+    Villager* findVillagerWhichMoveOut();
+
+    Villager** getVillagerArray();
+
+    bool isFreeSpace();
+
+    void deleteFromPreviousHousehold(Villager *deleteVillager);
 };
 
 #endif // HOUSEHOLD_H

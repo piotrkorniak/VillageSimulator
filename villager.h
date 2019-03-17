@@ -18,6 +18,7 @@ public:
 
     unsigned int age() const;
     bool isMan() const;
+    string name();
 };
 
 #endif // VILLAGER_H

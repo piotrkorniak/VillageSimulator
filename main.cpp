@@ -2,10 +2,6 @@
 #include "villager.h"
 #include "household.h"
 #include "village.h"
-
-#include "test.h"
-
-//wiek+20, jedyny mieszkaniec domu
 //Klasa powinnna posiadać metodę postarzającą domostwa o jeden rok. Jeżeli dziecko musiało się wyprowadzić z
 //domu, powinno poszukać możliwości zamieszkania w tej samej wiosce - poprzez dosiedlenie się do samotnej osoby
 //przeciwnej płci lub poprzez założenie domostwa. W pierwszej kolejności należy poszukać istniejącego domostwa,
@@ -21,26 +17,33 @@ int year;
 
 int main()
 {
-    //    int numberOfVillagers=500;
-    //    int numberOfSpaceInHousehold=1000;
-    //    int numberOfYears=10000;
-
-    //    srand( time( NULL ) );
-    //    Household h(numberOfSpaceInHousehold);
-    //    for(int i=0; i<numberOfVillagers; ++i)
-    //    {
-    //        h.createNewVillager();
-    //    }
-    //    for(year=0;year<numberOfYears;year++)
-    //    {
-    //        h.simulateYear();
-    //    }
-    Village metelin(10,15);
+    int numberOfYears=10000;
+    srand( time( NULL ) );
+    Village metelin(4,4);
     metelin.createHousehold(1,1,10);
+    metelin.createHousehold(1,2,10);
+    metelin.createHousehold(3,1,10);
     metelin.getHousehold(1,1).createNewVillager();
+    metelin.getHousehold(1,2).createNewVillager();
+    metelin.getHousehold(3,1).createNewVillager();
     metelin.getHousehold(1,1).createNewVillager();
+    metelin.getHousehold(1,2).createNewVillager();
+    metelin.getHousehold(3,1).createNewVillager();
     metelin.getHousehold(1,1).createNewVillager();
+    metelin.getHousehold(1,2).createNewVillager();
+    metelin.getHousehold(3,1).createNewVillager();
+    metelin.simulateYear();
     metelin.getHousehold(1,1).createNewVillager();
+    metelin.getHousehold(1,2).createNewVillager();
+    metelin.getHousehold(3,1).createNewVillager();
+    metelin.getHousehold(1,1).createNewVillager();
+    metelin.getHousehold(1,2).createNewVillager();
+    metelin.getHousehold(3,1).createNewVillager();
+    for(year=0;year<numberOfYears;year++)
+    {
+        metelin.simulateYear();
+    }
+
     metelin.printMap();
 
     return 0;

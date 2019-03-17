@@ -1,5 +1,5 @@
 #include "village.h"
-
+#include "simulationhelper.h"
 
 
 Household &Village::getHousehold(int x, int y)
@@ -40,14 +40,58 @@ void Village::simulateYear()
     {
         for(unsigned int j=0;j<_mapSizeY;j++)
         {
-            householdMap[i][j]->simulateYear();
+            if(householdMap[i][j]!=nullptr)
+            {
+                householdMap[i][j]->simulateYear();
+                simulateMigration(i,j);
+            }
         }
     }
 }
 
-void Village::move(int x, int y)
+void Village::simulateMigration(unsigned int x, unsigned int y)
 {
-    //householdMap[x][y]->
+    Household* currentHousehold=householdMap[x][y];
+    Villager *villagerWhichMoveOut=currentHousehold->findVillagerWhichMoveOut();
+    if(!villagerWhichMoveOut)
+    {
+        return;
+    }
+    //-----------------------------------------------------------------
+    for(unsigned int i=0;i<_mapSizeX;i++)
+    {
+        for(unsigned int j=0;j<_mapSizeY;j++)
+        {
+            Household* newHousehold=householdMap[i][j];
+            if(newHousehold!=nullptr && newHousehold->getNumberOfResidents()==0)
+            {
+                newHousehold->addNewVillager(villagerWhichMoveOut);
+                SimulationHelper::AddLog("Obiekt "+villagerWhichMoveOut->name() + "przeprowadza sie do pustego domostwa.");
+                currentHousehold->deleteFromPreviousHousehold(villagerWhichMoveOut);
+                return;
+            }
+        }
+    }
+    //------------------------------------------------------------------------------------
+    for(unsigned int i=0;i<_mapSizeX;i++)
+    {
+        for(unsigned int j=0;j<_mapSizeY;j++)
+        {
+            Household* newHousehold=householdMap[i][j];
+            if(newHousehold!=nullptr && newHousehold->isFreeSpace() && newHousehold->getNumberOfResidents()==1 &&
+                    ((newHousehold->getVillagerArray()[0]->isMan() && !villagerWhichMoveOut->isMan()) ||
+                     (!newHousehold->getVillagerArray()[0]->isMan() && villagerWhichMoveOut->isMan())))
+            {
+                newHousehold->addNewVillager(villagerWhichMoveOut);
+                SimulationHelper::AddLog("Obiekt "+villagerWhichMoveOut->name() + "przeprowadza sie do samtonego obiektu.");
+                currentHousehold->deleteFromPreviousHousehold(villagerWhichMoveOut);
+                return;
+            }
+
+        }
+    }
+
+
 }
 
 

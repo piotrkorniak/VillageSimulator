@@ -50,4 +50,7 @@ bool Villager::isMan() const
 {
     return _isMan;
 }
-
+string Villager::name()
+{
+    return _name;
+}

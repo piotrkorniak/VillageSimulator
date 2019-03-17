@@ -20,7 +20,7 @@ public:
 
     void simulateYear();
 
-    void move(int x, int y);
+    void simulateMigration(unsigned int x, unsigned int y);
 };
 
 
