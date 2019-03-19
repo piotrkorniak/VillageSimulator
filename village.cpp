@@ -66,7 +66,7 @@ void Village::simulateMigration(unsigned int x, unsigned int y)
             if(newHousehold!=nullptr && newHousehold->getNumberOfResidents()==0)
             {
                 newHousehold->addNewVillager(villagerWhichMoveOut);
-                SimulationHelper::AddLog("Obiekt "+villagerWhichMoveOut->name() + "przeprowadza sie do pustego domostwa.");
+                SimulationHelper::AddLog("Obiekt "+villagerWhichMoveOut->name() + " przeprowadza sie do pustego domostwa.");
                 currentHousehold->deleteFromPreviousHousehold(villagerWhichMoveOut);
                 return;
             }
@@ -91,10 +91,23 @@ void Village::simulateMigration(unsigned int x, unsigned int y)
         }
     }
 
+    for(unsigned int i=0;i<_mapSizeX;i++)
+    {
+        for(unsigned int j=0;j<_mapSizeY;j++)
+        {
+            if(householdMap[i][j]==nullptr)
+            {
+                createHousehold(i,j,10);
+                householdMap[i][j]->addNewVillager(villagerWhichMoveOut);
+                SimulationHelper::AddLog("Obiekt "+villagerWhichMoveOut->name() + " buduje dom.----------------------");
+                currentHousehold->deleteFromPreviousHousehold(villagerWhichMoveOut);
+                return;
+            }
+
+        }
+    }
 
 }
-
-
 
 
 Village::Village(unsigned int mapSizeX, unsigned int mapSizeY) : _mapSizeX(mapSizeX), _mapSizeY(mapSizeY)

@@ -53,7 +53,7 @@ void Household::bornNewVillagers()
         {
             isProlificWomanExistInHousehold=true;
         }
-        else if(villagerArray[i]->age()<5)
+        else if(villagerArray[i]->age()<4)
         {
             isChildExistInHousehold=true;
         }
