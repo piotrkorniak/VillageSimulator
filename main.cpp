@@ -2,11 +2,6 @@
 #include "villager.h"
 #include "household.h"
 #include "village.h"
-// w ostateczności należy założyć nowe domostwo. Przy zakładaniu
-//swojego domostwa, w pierwszej kolejności należy sprawdzić najbliższe sąsiedztwo domu rodziców (8 pól), a
-//jeżeli są zajęte, wybrać dowolne inne miejsce. Jeżeli nie ma miejsca do osiedlenia, osoba musi opuścić wioskę.
-//Destruktor powinien wówczas wyświetlić informację o emigracji. Jeżeli nikt przez rok nie zasiedli domostwa,
-//powinno ono zostać zniszczone.
 
 string womanName[6]={"Ala","Ada","Ania","Monika","Basia","Anastazja"};
 string manName[6]={"Adam","Piotr","Stefan","Michal","Marcin","Bartek"};
@@ -14,8 +9,8 @@ int year;
 
 int main()
 {
-    Village metelin(20,20);
-    int numberOfYears=500;
+    Village metelin(50,50);
+    int numberOfYears=5000;
     srand( time( nullptr ) );
     metelin.createHousehold(0,0,10);
     metelin.createHousehold(0,1,10);
@@ -56,9 +51,9 @@ int main()
     for(year=0;year<numberOfYears;year++)
     {
         metelin.simulateYear();
-        if(year%100==0)
+       if(year%100==0)
         {
-            metelin.printMap();
+           metelin.printMap();
         }
     }
 
